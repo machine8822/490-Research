@@ -151,6 +151,9 @@
 
   // Simulated Login Submission with Loading State
   function handleLogin() {
+    const username = document.getElementById('identifier').value.trim();
+    const password = document.getElementById('password').value;
+
     const signInBtn = document.getElementById('signInBtn');
     const btnText = document.getElementById('btnText');
     const btnIcon = document.getElementById('btnIcon');
@@ -159,23 +162,23 @@
     btnText.textContent = "Authenticating...";
     btnIcon.classList.add('hidden');
     btnLoader.classList.remove('hidden');
-    signInBtn.classList.add('opacity-90', 'pointer-events-none');
+    signInBtn.disabled = true;
 
     setTimeout(() => {
-      btnText.textContent = "Verified!";
+      if (username === "admin" && password === "test") {
+        btnText.textContent = "Verified!";
+      } else {
+        btnText.textContent = "Invalid username or password";
+      }
+
       btnLoader.classList.add('hidden');
-      const checkIcon = document.createElement('span');
-      checkIcon.className = 'material-symbols-outlined text-[20px] animate-bounce';
-      checkIcon.textContent = 'check_circle';
-      signInBtn.appendChild(checkIcon);
 
       setTimeout(() => {
         btnText.textContent = "Sign In";
-        checkIcon.remove();
         btnIcon.classList.remove('hidden');
-        signInBtn.classList.remove('opacity-90', 'pointer-events-none');
-      }, 1500);
-    }, 1200);
+        signInBtn.disabled = false;
+      }, 1800);
+    }, 800);
   }
   
 </script></main>
